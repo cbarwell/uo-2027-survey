@@ -110,6 +110,7 @@ function answered(v){if(v==null)return false;if(Array.isArray(v))return v.length
 /* ---------- view switch ---------- */
 function setView(v){S.view=v;S.preview=(v==='family'&&isAdminMode);$('#v-family').setAttribute('aria-pressed',v==='family');$('#v-admin').setAttribute('aria-pressed',v==='admin');render();window.scrollTo(0,0)}
 if(isAdminMode){
+  $('.seg').hidden=false;
   $('#v-family').textContent='Preview survey';
   $('#v-family').setAttribute('aria-pressed','false');$('#v-admin').setAttribute('aria-pressed','true');
   $('#v-family').onclick=()=>{S.step=-1;S.answers={};setView('family')};
