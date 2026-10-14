@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Up &amp; Over 2027 Survey</title>
+<meta name="description" content="A short survey to help Up &amp; Over plan programs, days and trips for 2027.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css?v=1">
+</head>
+<body>
+<header class="bar">
+  <div class="wrap wide bar-in">
+    <div class="brand">
+      <span class="logo-mark" role="img" aria-label="Up &amp; Over logo"></span>
+      <div>Up &amp; Over<small>2027 Survey</small></div>
+    </div>
+    <div class="seg" role="group" aria-label="View">
+      <button id="v-family" aria-pressed="true">Family view</button>
+      <button id="v-admin" aria-pressed="false">Admin</button>
+    </div>
+  </div>
+</header>
+<main id="app"><div class="wrap"><p class="loading">Loading the survey…</p></div></main>
+<div id="savebar" class="savebar" hidden></div>
+<div id="toast" class="toast" hidden></div>
+<div class="hp" aria-hidden="true"><label for="hp">Leave this empty</label><input id="hp" name="uo_check_7x" type="text" tabindex="-1" autocomplete="off" data-lpignore="true" data-1p-ignore="true"></div>
+<script>
+window.API_URL = 'https://script.google.com/macros/s/AKfycbx83jbQfpAehKtX67Ay4qHtd2mVdN_262PyrzIsuT4wXq9MuQW9VIJzVVAgaNjPi9yHQg/exec';
+(function () {
+  var started = false;
+  function start(boot) {
+    if (started) return; started = true;
+    window.BOOT = boot;
+    var s = document.createElement('script'); s.src = 'app.js?v=1'; document.body.appendChild(s);
+  }
+  var fallback = { mode: 'family', config: null, open: true };
+  var timer = setTimeout(function () { start(fallback); }, 10000);
+  fetch(window.API_URL + '?api=config', { redirect: 'follow' })
+    .then(function (r) { return r.json(); })
+    .then(function (j) { clearTimeout(timer); start({ mode: 'family', config: (j && j.config) || null, open: !(j && j.open === false) }); })
+    ['catch'](function () { clearTimeout(timer); start(fallback); });
+})();
+</script>
+</body>
+</html>
